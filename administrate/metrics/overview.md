@@ -62,7 +62,7 @@ All your applications access logs are pushed to [Warp10]({{< ref "administrate/m
 Access logs are defined in the `'accessLogs'` Warp10 class and there are three Warp10 labels available:
 
 - `owner_id`: Organisation ID
-- `app_id` or `addon_id`: Application ID or Addon ID
+- `app_id` : Application ID (ex: `app_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx` ) or Addon ID (ex: `postgresql_xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx`)
 - `adc` or `sdc`
   - `adc` (Application Delivery Controller) are used for HTTP connections
   - `sdc` (Service Delivery Controller) are used for TCP connections
