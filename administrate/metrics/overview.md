@@ -3,16 +3,16 @@ title: Metrics Overview
 shortdesc: Gather metrics on your applications
 weight: 1
 tags:
-- metrics
+  - metrics
 keywords:
-- metrics
-- accesslogs
-- warp10
+  - metrics
+  - accesslogs
+  - warp10
 ---
-{{< alert "warning" "Warning:" >}}
-    Clever Cloud Metrics is still in beta.
-{{< /alert >}}
 
+{{< alert "warning" "Warning:" >}}
+Clever Cloud Metrics is still in beta.
+{{< /alert >}}
 
 In addition to logs, you can have access to metrics to know how your application
 behaves. By default, system metrics like CPU and RAM use are available, as well
@@ -28,6 +28,7 @@ one [as described here](https://github.com/influxdata/telegraf/tree/master/plugi
 We also support Prometheus metrics collection. By default our agent collects exposed metrics on `localhost:9100/metrics`.
 
 If needed, you can override those settings with the two following environment variables:
+
 - `CC_METRICS_PROMETHEUS_PORT`: Define the port on which the Prometheus endpoint is available
 - `CC_METRICS_PROMETHEUS_PATH`: Define the path on which the Prometheus endpoint is available
 
@@ -60,11 +61,11 @@ All your applications access logs are pushed to [Warp10]({{< ref "administrate/m
 
 Access logs are defined in the `'accessLogs'` Warp10 class and there are three Warp10 labels available:
 
-* `owner_id`: Organisation ID
-* `app_id` or `addon_id`: Application ID or Addon ID
-* `adc` or `sdc`
-    * `adc` (Application Delivery Controller) are used for HTTP connections
-    * `sdc` (Service Delivery Controller) are used for TCP connections
+- `owner_id`: Organisation ID
+- `app_id` or `addon_id`: Application ID or Addon ID
+- `adc` or `sdc`
+  - `adc` (Application Delivery Controller) are used for HTTP connections
+  - `sdc` (Service Delivery Controller) are used for TCP connections
 
 > Available addons for the field `addon_id` are mysql, redis, mongodb and postgresql addons.
 
@@ -150,7 +151,6 @@ sdc -> Reverse proxy hostname
 sDuration -> total session duration time in millis
 ```
 
-
 ### Queries examples:
 
 The main ways to use `accessLogs` data is to `FETCH` over it and get interesting values by a JSON processing.
@@ -172,27 +172,28 @@ In the following example, we get the `accessLogs` status codes and create a GTS 
 
 <script src="https://gist.github.com/cnivolle/2ee8607d995daa1316e17ffc3874d047.js"></script>
 
-
 An example using the provided Clever Cloud macro to straightforward access to the access logs input byte :
+
 ```bash
   '<READ TOKEN>' { 'app_id'  'id' } 'bIn' NOW 1 h  @clevercloud/fetch_accessLogs_key_v0
 ```
 
 or to get the latitude of the destination, which is a nested data:
+
 ```bash
   '<READ TOKEN>' { 'app_id'  'id' } 'd.lt' NOW 1 h  @clevercloud/fetch_accessLogs_key_v0
 ```
 
 ## Monitoring' metrics
 
-All applications and VMs instances behind are monitored. Data is sent to [Warp10]({{< ref "administrate/metrics/warp10.md" >}}), a Geotimes 
-series database. 
-All metrics can be processed directly in the console in the Metrics tab of your applications or by the Clever Cloud 
+All applications and VMs instances behind are monitored. Data is sent to [Warp10]({{< ref "administrate/metrics/warp10.md" >}}), a Geotimes
+series database.
+All metrics can be processed directly in the console in the Metrics tab of your applications or by the Clever Cloud
 Warp10 endpoint.
 
 ### Monitoring data model
 
-All metrics data follow the same schema in warp10. 
+All metrics data follow the same schema in warp10.
 Each class represents a specific metric. The context is provided by the warp10 labels.
 
 #### Class values and Labels
@@ -201,7 +202,7 @@ Each class represents a specific metric. The context is provided by the warp10 l
 
 A telegraf daemon supplies most metrics.
 
-Each metric is recorded as a warp10 class. 
+Each metric is recorded as a warp10 class.
 Labels provide additional information about the VMs like instances id, organisation id, reverse proxy used.
 
 ##### Labels
@@ -432,17 +433,65 @@ Below, the list of all warp10 classes representing Telegraf metrics :
 <tr>
 <td align="center">mem.swap_cached</td>
 </tr>
+<tr>  <td align=”center”> jvm.statsd-jvm-profiler_heap_ps-old-gen_max.value</td>
+<td align="center">jvm.statsd-jvm-profiler_pending-finalization-count.value</td>  </tr>
+<tr>  <td align=”center”> jvm.statsd-jvm-profiler_nonheap_total_committed.value</td>
+<td align="center">jvm.statsd-jvm-profiler_loaded-class-count.value</td>  </tr>
+<tr>  <td align=”center”> jvm.metrics_jvm_heapMemoryUsage_used.value</td>
+<td align="center">jvm.statsd-jvm-profiler_gc_PS_Scavenge_count.value</td>  </tr>
+<tr>  <td align=”center”> jvm.metrics_jvm_nonHeapMemoryUsage_used.value</td>
+<td align="center">jvm.statsd-jvm-profiler_nonheap_metaspace_init.value</td>  </tr>
+<tr>  <td align=”center”> jvm.statsd-jvm-profiler_nonheap_total_used.value</td>
+<td align="center">jvm.statsd-jvm-profiler_heap_ps-survivor-space_used.value</td>  </tr>
+<tr>  <td align=”center”> jvm.statsd-jvm-profiler_heap_ps-eden-space_init.value</td>
+<td align="center">jvm.statsd-jvm-profiler_gc_PS_MarkSweep_time.value</td>  </tr>
+<tr>  <td align=”center”> jvm.statsd-jvm-profiler_nonheap_total_max.value</td>
+<td align="center">jvm.statsd-jvm-profiler_heap_ps-eden-space_max.value</td>  </tr>
+<tr>  <td align=”center”> jvm.statsd-jvm-profiler_nonheap_compressed-class-space_max.value</td>
+<td align="center">jvm.statsd-jvm-profiler_heap_total_init.value</td>  </tr>
+<tr>  <td align=”center”> jvm.statsd-jvm-profiler_nonheap_code-cache_used.value</td>
+<td align="center">jvm.statsd-jvm-profiler_nonheap_metaspace_used.value</td>  </tr>
+<tr>  <td align=”center”> jvm.statsd-jvm-profiler_nonheap_compressed-class-space_init.value</td>
+<td align="center">jvm.statsd-jvm-profiler_nonheap_metaspace_max.value</td>  </tr>
+<tr>  <td align=”center”> jvm.statsd-jvm-profiler_gc_PS_MarkSweep_count.value</td>
+<td align="center">jvm.statsd-jvm-profiler_heap_ps-eden-space_used.value</td>  </tr>
+<tr>  <td align=”center”> jvm.statsd-jvm-profiler_total-loaded-class-count.value</td>
+<td align="center">jvm.statsd-jvm-profiler_nonheap_total_init.value</td>  </tr>
+<tr>  <td align=”center”> jvm.metrics_jvm_thread.value</td>
+<td align="center">jvm.statsd-jvm-profiler_heap_total_used.value</td>  </tr>
+<tr>  <td align=”center”> jvm.statsd-jvm-profiler_heap_total_committed.value</td>
+<td align="center">jvm.statsd-jvm-profiler_nonheap_compressed-class-space_committed.value</td>  </tr>
+<tr>  <td align=”center”> jvm.metrics_jvm_nonHeapMemoryUsage_committed.value</td>
+<td align="center">jvm.statsd-jvm-profiler_unloaded-class-count.value</td>  </tr>
+<tr>  <td align=”center”> jvm.statsd-jvm-profiler_nonheap_code-cache_init.value</td>
+<td align="center">jvm.metrics_jvm_loadedClasses.value</td>  </tr>
+<tr>  <td align=”center”> jvm.statsd-jvm-profiler_nonheap_code-cache_max.value</td>
+<td align="center">jvm.statsd-jvm-profiler_nonheap_compressed-class-space_used.value</td>  </tr>
+<tr>  <td align=”center”> jvm.statsd-jvm-profiler_heap_ps-survivor-space_max.value</td>
+<td align="center">jvm.statsd-jvm-profiler_nonheap_code-cache_committed.value</td>  </tr>
+<tr>  <td align=”center”> jvm.statsd-jvm-profiler_heap_ps-old-gen_committed.value</td>
+<td align="center">jvm.statsd-jvm-profiler_heap_ps-survivor-space_committed.value</td>  </tr>
+<tr>  <td align=”center”> jvm.statsd-jvm-profiler_gc_PS_Scavenge_time.value</td>
+<td align="center">jvm.statsd-jvm-profiler_heap_ps-old-gen_used.value</td>  </tr>
+<tr>  <td align=”center”> jvm.metrics_jvm_heapMemoryUsage_committed.value</td>
+<td align="center">jvm.statsd-jvm-profiler_gc_PS_MarkSweep_runtime.value</td>  </tr>
+<tr>  <td align=”center”> jvm.statsd-jvm-profiler_nonheap_metaspace_committed.value</td>
+<td align="center">jvm.statsd-jvm-profiler_heap_ps-eden-space_committed.value</td>  </tr>
+<tr>  <td align=”center”> jvm.statsd-jvm-profiler_heap_ps-old-gen_init.value</td>
+<td align="center">jvm.statsd-jvm-profiler_heap_total_max.value</td>  </tr>
+<tr>  <td align=”center”> jvm.statsd-jvm-profiler_gc_PS_Scavenge_runtime.value</td>
+<td align="center">jvm.statsd-jvm-profiler_heap_ps-survivor-space_init.value</td>  </tr>
 </tbody>
 </table>
 
 ### Examples and usages
 
-From the `metrics` tab on the console. You can either open a Quantum console, an online warpscript 
+From the `metrics` tab on the console. You can either open a Quantum console, an online warpscript
 editor, or either send your warpscript by your own way on the warp10 endpoint (provided by Quantum).
 
 More information about [Quantum and Warp10]({{< ref "administrate/metrics/warp10.md" >}}) in our documentation.
 
-For example, you could fetch the memory usage of an application for the last hour. Smoothed by a data average by 
+For example, you could fetch the memory usage of an application for the last hour. Smoothed by a data average by
 minute.
 
 <div class=“panel panel-warning”>
@@ -466,13 +515,13 @@ NOW 'NOW' STORE
 ```
 
 ## Consumption metric
- 
-Consumption can also be inferred by our metrics. We provide some helper macros in the 
+
+Consumption can also be inferred by our metrics. We provide some helper macros in the
 [Warp10 documentation]({{< ref "administrate/metrics/warp10.md" >}}).
 
-Consumption unit is in **second**. 
+Consumption unit is in **second**.
 
-The following script provides the whole consumption from between start and  end timestamps for all applications 
+The following script provides the whole consumption from between start and end timestamps for all applications
 under an organisation.
 
 ```bash
@@ -499,14 +548,14 @@ You can use `node-statsd` to publish metrics
 ```javascript
 // npm install node-statsd
 
-const StatsD = require('node-statsd'),
-      client = new StatsD();
+const StatsD = require("node-statsd"),
+  client = new StatsD();
 
 // Increment: Increments a stat by a value (default is 1)
-client.increment('my_counter');
+client.increment("my_counter");
 
 // Gauge: Gauge a stat by a specified amount
-client.gauge('my_gauge', 123.45);
+client.gauge("my_gauge", 123.45);
 ```
 
 ### Haskell example
